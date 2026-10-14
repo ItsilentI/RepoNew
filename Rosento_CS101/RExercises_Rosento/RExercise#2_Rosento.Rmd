@@ -30,10 +30,10 @@ a %/% b
 2 ^ 10
 ```
 #Question #1: Run 17 / 5, 17 %% 5, and 17 %/% 5 side by side. In your own words, explain how these three results relate to each other mathematically.
-#"/" is the standard division while "%%" and "%/%" is the remainder and the whole number respectively
+"/" is the standard division while "%%" and "%/%" is the remainder and the whole number respectively
 
 #Question #2: Predict the output of 10 %% 3 and 10 %/% 3 before running the code. Were you correct? If not, explain what you misunderstood.
-#Yes I was able to predict that 10 %% 3 is 1 and 10 %/% 3 is 3.
+Yes I was able to predict that 10 %% 3 is 1 and 10 %/% 3 is 3.
 
 ```{r}
 x <- 42
@@ -63,16 +63,78 @@ mode(w)
 mode(v)
 ```
 #Question #3): x <- 42 and y <- 42L look almost identical, but typeof(x) and typeof(y) give different answers. Explain the difference in your own words.
+x is a numeric, while y is an integer, hence wqhy they give different answers.
 
-(Your answer here)
+#Question #4: Is typeof() ever different from class() and from mode() for the same object? Look at your results above and explain any case where this happens (or, if you did not see one, explain what you would expect for a matrix or factor).
+typeof() is a internal storage type, mode() is a legacy classification for basic data type, and
+class() is the object-oriented label.
+
+```{r}
+num_string <- "123"
+# TODO: Convert num_string to a numeric value using as.numeric()
+# Then check its type with typeof(), class(), and mode()
+as.numeric(num_string)
+typeof(num_string)
+class(num_string)
+mode(num_string)
+```
+```{r}
+# TODO: Convert the number 0 and the number 1 to logical using as.logical()
+# What do you get?
+as.logical(0)
+as.logical(1)
+```
+```{r}
+bad_string <- "hello123"
+# TODO: Try converting bad_string to numeric using as.numeric()
+# Run this chunk and observe the warning message and the result
+as.numeric(bad_string)
+```
+
+```{r}
+first_name <- "Juan"
+last_name <- "Dela Cruz"
+# TODO: Print first_name and last_name using print() and/or cat()
+print(first_name)
+cat(last_name)
+```
+```{r}
+# TODO: Use paste() to combine first_name and last_name into a full name
+# TODO: Use paste0() to do the same, and compare the two results
+paste(first_name,last_name)
+paste0(first_name,last_name)
+```
+```{r}
+# TODO: Use paste() with the argument sep = "-" to join first_name and
+# last_name with a dash instead of a space
+paste(first_name,last_name, sep = "-")
+```
+```{r}
+age <- 21
+#TODO: Use paste0() to build the sentence:
+# "Juan Dela Cruz is 21 years old." by combining full_name, age, and text
+paste0(first_name, " ", last_name, " is ", age)
+```
+#Question #7: paste() and paste0() produced different results for the same two strings. Explain exactly why, referencing what each function does by default.
+paste() creates a space when adding an input, while paste0(0) does not.
+
+#Question #8: In the strings-numbers chunk, you combined a character string with a numeric variable (age) using #paste0() without first converting age to a string. Did this cause an error? Explain what paste0() does internally to #make this work, and how it relates to the type conversions you practiced in Part C.
+No, combining a character string with a numeric variable using paste0() did not cause an error.
+
+```{r}
+# TODO: Predict, then test: what is the result of "5" + 5 in R?
+# Run it and read the error message carefully.
+5+5
+```
+#Question #9: Some programming languages automatically convert "5" + 5 into 10 without an error. R does not.
+#Based on what you’ve learned about R’s data types in this lab, why do you think R requires an explicit conversion instead of guessing what the programmer meant?
+The "+" operator requires numeric data to avoid data corruption and "5" is a character data type
+
+#Question #10: Suppose a classmate writes a script that reads a column of “numbers” from a text file. The column looks numeric, but when they try sum() on it, R throws an error. Based on everything in this lab (types, typeof()/class()/mode(), conversion, warnings), write a short paragraph explaining what likely went wrong and the steps you’d take to diagnose and fix it.
+The column likely read into R as a character vector. This happens because text files often include non-numeric characters , forcing R to import the entire column as text. Because the sum() function requires strictly numeric inputs, it throws an error when it encounters text strings.
 
 
-
-Question #4: Is typeof() ever different from class() and from mode() for the same object? Look at your results above and explain any case where this happens (or, if you did not see one, explain what you would expect for a matrix or factor).
-
-(Your answer here)
-
-
-
-
+#Conclusion
+#In 3–4 sentences, summarize what you learned about how R handles different data types, and why understanding typeof()/class() and conversion functions matters before doing arithmetic 
+Data Types are separated into categories, and does not automatically convert into numbers. Because arithmetic operators like + only accept numeric inputs and other data types might trigger and error.Understanding these data types is important to prevent bugs, data corruption and ensures accurate data results.
 

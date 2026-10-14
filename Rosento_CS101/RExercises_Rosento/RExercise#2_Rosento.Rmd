@@ -124,7 +124,7 @@ No, combining a character string with a numeric variable using paste0() did not 
 ```{r}
 # TODO: Predict, then test: what is the result of "5" + 5 in R?
 # Run it and read the error message carefully.
-5+5
+as.numeric("5"+5)
 ```
 #Question #9: Some programming languages automatically convert "5" + 5 into 10 without an error. R does not.
 #Based on what you’ve learned about R’s data types in this lab, why do you think R requires an explicit conversion instead of guessing what the programmer meant?
@@ -137,4 +137,3 @@ The column likely read into R as a character vector. This happens because text f
 #Conclusion
 #In 3–4 sentences, summarize what you learned about how R handles different data types, and why understanding typeof()/class() and conversion functions matters before doing arithmetic 
 Data Types are separated into categories, and does not automatically convert into numbers. Because arithmetic operators like + only accept numeric inputs and other data types might trigger and error.Understanding these data types is important to prevent bugs, data corruption and ensures accurate data results.
-

@@ -1,0 +1,114 @@
+---
+title: "RExercise#7_Rosento"
+output: html_document
+---
+
+Question #1
+```{r}
+respond <- 1:20
+sex <- c(2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 1, 2)
+f_occ <- c(1, 3, 3, 3, 1, 2, 3, 1, 1, 1, 3, 2, 1, 3, 3, 1, 3, 1, 2, 1)
+p_home <- c(5, 7, 3, 8, 5, 9, 6, 7, 8, 4, 7, 5, 4, 7, 8, 8, 3, 11, 7, 6)
+s_school <- c(6, 4, 4, 1, 2, 1, 5, 3, 1, 2, 3, 2, 5, 5, 2, 1, 2, 5, 3, 2)
+h_type <- c(1, 2, 3, 1, 1, 3, 3, 1, 2, 3, 2, 3, 2, 2, 3, 3, 3, 3, 3, 2)
+
+c(length(respond),length(sex),length(f_occ),length(p_home),length(s_school),length(h_type))
+```
+```{r}
+results <- data.frame(
+  Respond  = respond,
+  Sex      = sex,
+  FathersOccupation    = f_occ,
+  PersonAtHome   = p_home,
+  SiblingAtSchool = s_school,
+  TypeofHouses   = h_type
+)
+
+results
+```
+```{r}
+#a.
+str(results)
+summary(results)
+
+
+#b.
+dim(results)
+nrow(results)
+ncol(results)
+
+
+#c.
+sex <- factor (sex,
+        levels = c(1, 2),
+        labels = c("Male", "Female"))
+
+f_occ <- factor (f_occ,
+        levels = c(1, 2, 3),
+        labels = c("Farmer", "Driver","Others"))
+
+h_type <- factor (h_type,
+        levels = c(1, 2, 3),
+        labels = c("Wood", "Semi-COncrete","COncrete"))
+table(sex)
+table(f_occ)
+table(h_type)
+
+#d.
+colMeans(results)
+```
+```{r}
+#e.
+results[1:5,]
+
+#f.
+types_houses <- results$H_type
+types_houses
+
+#g.
+results[results$Sex == "Male" & results$F_occ == "Farmer", ]
+
+#h.
+results[results$Sex == "Female" & results$S_school >= 5, ]
+```
+Question #2
+```{r}
+#To ensure that the data given was correct and to avoid 
+#errors such as missing data, and avoid shifting the wrong data to the respondent
+```
+
+Question #3
+```{r}
+#Sex, FathersOccupation, and TypesOfHouses are categories (nominal data), because the numbers are 
+#only codes for groups. PersonsAtHome and SiblingsAtSchool are real counts. Averaging Sex won't make #sense since it's only a category, so the Mean won't describe anything.
+```
+
+Question #4
+```{r}
+#Filtering on Sex == 1 produces rows that only show the digit 1. A reader who hasn’t seen the #legend has no way of knowing that it stands for Male. This shows that coded data carries no #meaning of its own until labels are added.
+```
+
+Question #3
+```{r}
+#Sex, FathersOccupation, and TypesOfHouses are categories, because the numbers are only codes for #groups. PersonsAtHome and SiblingsAtSchool are real counts. Averaging Sex won'tmake 
+#sense since it's only a category, so the Mean won't describe anything.
+```
+
+Question #5
+```{r}
+sum(survey$Sex == 1)
+#The data has 3 males that can be found. Because the sample is only 20 people, and 
+#just 3 of them are male, a single respondent can shift the pattern noticeably. 
+#So I'm not confident applying these findings to a larger population.
+```
+
+Question #6
+```{r}
+#R picks the type of summary based on how a column is stored, not on what the values represent. #Since they're are saved as plain numbers, R reports min, mean, and max for them. 
+#This shows that how data is stored can differ.
+```
+
+Question #7
+```{r}
+#The mean of PersonsAtHome is worth reporting because it reflects a real count of people. The mean #of Sex isn’t, since it averages group labels. For Sex, the right summary is a count or percentage.
+```

@@ -1,0 +1,109 @@
+---
+title: "RExercise#8_Rosento"
+author: Ezekiel Martin Rosento
+date: 11-6-26
+output: html_document
+---
+
+Question #1
+```{r}
+#a.
+scores <- c("Ana" = 78,"Ben" = 92,"Cid" = 85,"Dex" = 92, "Eli" = 67, "Fay" = 88, "Gio" = 74)
+
+#b.
+sort(scores)
+sort(scores, decreasing = TRUE)
+
+#c.
+print(sort(scores))
+
+#d.
+subjects <- c("Science", "Math", "English", "Filipino", "PE") 
+incomplete <- c(85, NA, 90, 70, NA, 95)
+sort(subjects)
+sort(incomplete, na.last = TRUE)
+```
+Question #2
+```{r}
+#Because the names were assigned to the scores. By sorting it, it just simply rearranges the data.
+#If names don't follow, it can give the wrong scores to the wrong student.
+```
+
+Question #3
+```{r}
+#NA is dangerous because of it's uncertainty. If you simply put NA in the lowest, it might not be
+#true as there's a possibility that the missing scores is lower than the showed scores.
+```
+
+Question #4
+```{r}
+order(scores) 
+sort(scores)
+#order() returns the index position, while sort() returns the rearranged values
+
+#a.
+#Yes they do. Order() gives the position of a score in a sorted order.
+```
+
+Question #5
+```{r}
+students <- data.frame(
+name = c("Ana", "Ben", "Cid", "Dex", "Eli", "Fay", "Gio"),
+score = c(78, 92, 85, 92, 67, 88, 74),
+section = c("A", "B", "A", "B", "A", "B", "A")
+)
+
+#a.
+students[order(students$score), ]
+
+#b.
+students[order(students$score, decreasing = TRUE), ]
+```
+
+Question #6
+```{r}
+sort(scores) 
+scores[order(scores)]
+
+#order(scores) returns the positions you'd visit to get ascending order, not the values themselves, #so the output means nothing on its own. It's only useful when used to index scores[order(scores)] #or, which lets the same ordering reorder other data too.
+```
+
+Question #7
+```{r}
+#sort() returns only sorted values and loses their original positions, so it can't reorder a data #frame without scrambling the rows. Order() returns positions, so students[order(students$score), ] #moves every row as a unit and keeps all columns lined up.
+```
+
+Question #8
+```{r}
+rank(scores)
+cbind(scores, rank(scores))
+
+#a.
+rank(scores[c(2,4)])
+
+#b.
+#When values tie, `rank()` gives each the average of the positions they share, so Ben and Dex  
+#both get 1.5 instead of 1 or 2.
+```
+
+Question #9
+```{r}
+#a.
+sales <- data.frame( 
+  employee = c("Rey", "Sam", "Tin", "Uma", "Val"), 
+  units_sold = c(120, 145, 145, 98, 130))
+
+sales$rank <- rank(-sales$units_sold)
+sales
+
+#b.
+sales[order(sales$units_sold, decreasing = TRUE), ]
+```
+
+Question #10
+```{r}
+#Yes, order() alone could do both jobs as long as there are no ties. 
+#What it lacks is any sense of ties, it always puts items in a strict line, while rank() 
+#sees that equal values deserve the same standing.
+```
+

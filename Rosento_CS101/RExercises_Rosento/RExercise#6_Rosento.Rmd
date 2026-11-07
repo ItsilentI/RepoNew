@@ -1,0 +1,119 @@
+---
+title: "RExercise#6_Rosento"
+author: Ezekiel Martin Rosento
+date: 11-6-26
+output: html_document
+---
+
+PART A
+```{r}
+name <- c("Ana", "Ben", "Cid", "Dex", "Eli")
+age <- c(20, 21, 19, 22, 20)
+passed <- c(TRUE, TRUE, FALSE, TRUE, FALSE)
+
+students <- data.frame(name = name, age = age, passed = passed)
+students
+
+typeof(students$name)
+class(students$name)
+
+courses <- data.frame(course_code = c("IS101", "IS102", "IS103"),
+units = c(3, 3, 2),
+instructor = c("Dr. P. Reyes", "Dr. R. Santos", "Dr. S. Cruz"))
+```
+
+Question #1
+```{r}
+#Because R throws an error about differing number of rows, if the length of the data frame is different.
+
+#Question #2
+#A data frame is a list of columns, so each column can be a different type, but each column is a #vector, which can only hold one type.
+```
+
+PART B
+```{r}
+students$age
+students[["age"]]
+students["age"]
+
+students[2, ]
+students[3, "name"]
+students[students$passed == TRUE, ]
+students[students$passed == TRUE & students$passed <= 19, ]
+```
+
+Question #3
+```{r}
+#Using class() on students["age"] returns data.frame while using it on students$age returns numeric, because single brackets on a list keep the container, while $ pulls out the vector inside.
+
+#Question #4: & compares the two logical vectors row by row and gives TRUE only where both are TRUE, so only those rows are kept, while | would keep a row if either condition is TRUE, returning more rows.
+```
+
+PART C
+```{r}
+str(students)
+dim(students) 
+nrow(students)
+ncol(students)
+
+colnames(students)
+summary(students)
+```
+
+Question #5
+```{r}
+#For age, R gives min, quartiles, median, etc. for passed, it gives counts of FALSE and TRUE. 
+#And for name, it only shows the length and type, because names are labels, so a mean has no #meaning for them.
+
+#Question #6
+#str() is more useful for checking the layout and column types, while summary() is more useful for #understanding the values themselves, such as the range, the average, and how many are TRUE.
+```
+
+PART D
+```{r}
+students$year_level <- c(2, 3, 1, 4, 2)
+students$passed <- NULL
+students[order(students$age), ]
+order(-students$age)
+```
+
+Question #7
+```{r}
+#No, since the column no longer exists, it's turned into NULL and itr returns nothing. Keeping track #of the current structure matters because each operation changes the data frame, and later steps can #silently break or give empty results if they rely on columns that are gone.”
+
+#Question #8
+# First, R reads students$age. Then order() returns the row positions that would put
+# those ages in ascending order (3 1 5 2 4), so the code becomes students[c(3, 1, 5, 2, 4), ].
+# R pulls the rows in that sequence. The empty space after the comma means "all columns,"
+# so each whole row moves as one unit and every column stays lined up with its age.
+```
+
+PART E
+```{r}
+grades <- data.frame(
+  name = c("Ana", "Ben", "Cid", "Dex", "Eli"),
+  midterm = c(85, 78, 92, 88, 70),
+  final = c(90, 82, 95, 84, 75)
+)
+grades$average <- (grades$midterm + grades$final) / 2
+grades$remarks <- ifelse(grades$average >= 75, "Passed", "Failed")
+
+grades[grades$remarks == "Failed", c("name", "average")]
+```
+
+Question #9
+```{r}
+# I would add a change column, then sort by change and by midterm,
+# and filter the students marked Failed to see whether they match the biggest drops or
+# the lowest midterm scores. In this data, the only Failed student has the lowest
+# midterm and did not drop, so a low midterm seems more responsible.
+```
+
+Conclusion 
+```{r}
+# A data frame compiles vectors into a single table. It is built on a list, which lets one column
+# be text, another numeric, and another logical. This relates to vectors and lists by combining
+# the vectors' strict one-type columns with the list's flexibility, which makes storing data
+# cleaner and more efficient. Hence it is R's primary structure for real-world tabular data like
+# spreadsheets and CSV files, since it supports subsetting, sorting, and adding calculated columns.
+```

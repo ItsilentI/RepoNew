@@ -1,0 +1,156 @@
+---
+title: "RExercise#5_Rosento"
+author: Ezekiel Martin Rosento
+date: 11-6-26
+output: html_document
+---
+
+PART A
+```{r}
+m1 <- matrix(1:9, nrow = 3, ncol = 3)
+m1
+
+m2 <- matrix(1:9, nrow = 3, ncol = 3,byrow = TRUE)
+m2
+
+scores <- matrix(c(88, 92, 79, 95, 84, 90), nrow = 2, ncol = 3, byrow = TRUE)
+rownames(scores) <- c("Quiz1", "Quiz2")
+colnames(scores) <- c("Ana", "Ben", "Cid")
+scores
+```
+
+Question #1
+```{r}
+#byrow changes how the value is placed. With byrow, the values are placed across row instead of
+#down columns.
+
+#Question #2
+#R recycles the vector to fill the missing slot and gives a warning that the data length isn't a #multiple of the rows.
+```
+
+PART B
+```{r}
+scores[1, 2]
+scores[1, ]
+ scores[, "Ben"]
+ scores[scores >= 90]
+```
+
+Question #3
+```{r}
+# class() returns numeric, which shows R simplifies a single row or column into a vector.
+# R does this because a lone row or column has just one dimension left,
+# and a vector works more smoothly with functions like mean() and sum().
+
+#Question #4
+# scores >= 90 still gives a logical matrix with names.
+# scores[scores >= 90] picks scattered cellsby position,
+# so they can't form a rectangle and come back as a plain vector without names.
+# scores[1, ] keeps names because it takes a whole row, so the column names still apply.
+
+```
+
+PART C
+```{r}
+dim(scores) 
+nrow(scores)  
+ncol(scores)
+
+scores_t <- t(scores)
+scores_t
+dim(scores)    
+dim(scores_t)  
+
+a <- matrix(1:4, nrow = 2)
+b <- matrix(5:8, nrow = 2)
+a + b
+a * b
+a %*% b
+```
+
+Question #5
+```{r}
+#a * b multiplies matching cells ,
+#so both matrices need the same dimensions.
+#a %*% b is true matrix multiplication: each result cell is the sum of a row of a
+#multiplied by a column of b, so the columns of a must match the rows of b.
+
+#Question #6
+#Transposing turns rows into columns and columns into rows .
+#The names describe what each row or column holds, so they move with them:
+#the old row names become the column names, and the old column names become the row names.
+```
+
+PART D
+```{r}
+scores_v2 <- cbind(scores, Dex = c(85, 91))
+scores_v2
+
+scores_v3 <- rbind(scores, Quiz3 = c(80, 88, 93))
+scores_v3
+```
+
+
+Question #7
+```{r}
+#cbind(scores, c(85, 91, 100)) gives a warning, not an error, and R drops the extra value.
+#cbind() and rbind() need matching dimensions because a matrix must be a full rectangle, so #mismatched sizes would silently lose or repeat data.
+
+#Question #8
+#Use rbind() when each new batch of data is a new row with the same columns, like adding 
+#each day's sales for the same products to a sales table.
+#The columns stay fixed and only the rows grow over time.
+```
+
+PART E
+```{r}
+arr <- array(1:12, dim = c(2, 3, 2))
+arr
+
+arr[1, 2, 2]
+arr[ , , 1]
+
+dim(arr)
+```
+
+Question #9 
+```{r}
+#dim(arr) gives three numbers: the number of rows, the number of columns, and the number of layers.
+# For example, dim(arr) of 2 3 4 means 4 layers, each a 2 x 3 matrix.
+
+#Question #10
+#Quiz scores for 3 students across 2 quizzes, recorded over 4 weeks, fit a 3D array
+# A single 2D matrix can only hold one week at a time, so it can't keep all the weeks together in #one structure.
+```
+
+PART F
+```{r}
+class_a <- matrix(c(85, 90, 78, 92), nrow = 2, byrow = TRUE,
+                   dimnames = list(c("S1", "S2"), c("Midterm", "Final")))
+class_b <- matrix(c(88, 84, 95, 91), nrow = 2, byrow = TRUE,
+                   dimnames = list(c("S3", "S4"), c("Midterm", "Final")))
+
+all_students <- rbind(class_a, class_b)
+all_students
+
+rowMeans(all_students)
+```
+
+Question #11
+```{r}
+#I chose rbind() because class_a and class_b have the same columns but different students.
+#Shared column names meant the data described the same variables, so the new students belonged as extra rows.
+#If the two matrices had shared row names with different score columns, cbind() would have been correct.
+
+#I would stack all 5 matrices on top of each other, one after another, so every student becomes a #row in one matrix with the same 2 columns. To check it, dim() should show the total number of students and 2 columns.
+```
+
+Conclusion
+```{r}
+#A matrix is a 2D structure with rows and columns, while an array can have three or more #dimensions, such as rows, columns, and layers.
+#Both hold only one data type, and a matrix is really just a 2D array.
+#cbind() and rbind() are useful for growing a dataset over time, for example adding each new day's sales as a row with rbind(),
+#or adding a new quiz as a column with cbind() for the same group of students.
+```
+
+

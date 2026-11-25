@@ -1,0 +1,144 @@
+---
+title: "RPractical_Rosento"
+name: Ezekiel Martin Rosento
+date: "11-11-26"
+output:
+  html_document: default
+  pdf_document: default
+---
+PART A
+```{r}
+v <- seq(c(5,10,15,20,25,30,35,40,45,50))
+sum(v)
+length(v)
+mean(v)
+```
+
+```{r}
+w <- rep(c(1,2,3), times = 4)
+z <- rep(c(1,2,3), each = 4)
+w 
+z
+```
+
+```{r}
+5 %% 17
+17 / 5
+2^10
+sqrt(44)
+round(pi, digit=3)
+```
+
+```{r}
+a <- c(2,4,6,8)
+b <-c(1,3,5,7)
+a+b
+a*b
+a>b
+sum(a*b)
+```
+
+```{r}
+paste("Student-1","Student-2","Student-3")
+typeof(42)
+typeof(42L)
+typeof("42")
+typeof(41i)
+typeof(TRUE)
+```
+
+PART B
+```{r}
+id <- (1:8)
+name <- c("Alice","Bruno","Chen","Dala","Elif","Farid","Grace","Hiro")
+sex <- c("F","M","M","F","F","M","F","M")
+sec <- c("A","B","A","C","B","C","A","B")
+midterm <- c(78,85,92,67,74,88,95,59)
+final <- c(82,79,96,71,80,91,93,65)
+att <- c(95,88,100,72,90,85,98,60)
+  student_all <-data.frame(
+    name = name,
+    sex = sex,
+    sec =sec,
+    midterm = midterm,
+    final = final, 
+    att = att , stringsAsFactors = FALSE)
+  
+student_all
+
+```
+
+
+```{r}
+str(student_all)
+dim(student_all)
+colnames(student_all)
+summary(student_all)
+```
+
+```{r}
+student_all$avg <- round((student_all$midterm + student_all$final) / 2, 1)
+```
+
+```{r}
+student_all$passed <- student_all$avg >= 70 & student_all$att >= 75
+```
+
+```{r}
+student_all$standing <- ifelse(student_all$avg >= 90, "Honors",
+ifelse(student_all$avg >= 75, "Passed", "Needs Support"))
+```
+
+```{r}
+classify_student_all <- function(avg, att) {
+  ifelse(avg >= 85, "Distinction",
+    ifelse(avg >= 70, "Merit",
+      ifelse(avg >= 50 & att >= 50, "Passed", "Fail")))
+}
+print(student_all)
+
+```
+
+PART C
+```{r}
+new_students <- data.frame(
+id <- c(9,10),
+name <- c("Ines","Jamal"),
+sec <- c("C","A"),
+midterm <- c(81,70),
+final <- c(84,68),
+att <- c(92,80)
+)
+
+student_all<- rbind(new_students)
+```
+
+```{r}
+quiz <- c(8,7,10,6,7,9,10,5,8,6)
+student_all <- cbind(student_all, quiz)
+class(student_all)
+```
+
+```{r}
+m <- cbind(midterm = student_all$midterm, final = student_all$final)
+mean_row <- colMeans(student_all[sapply(student_all, is.numeric)], na.rm = TRUE)
+student_all <- rbind(student_all, mean = mean_row)
+```
+
+```{r}
+tryCatch(student_all)
+#The standard rbind() function in R throws the error "names do not match previous names".
+#This happens if you attempt to combine data frames with different column names.
+```
+
+PART D
+```{r}
+extracted1 <- student_all$quiz
+extracted2 <- student_all[ "quiz"]
+extracted3 <- student_all[["quiz"]]
+extracted1
+extracted2
+extracted3
+```
+
+

@@ -1,14 +1,16 @@
 ---
 title: "RExercise#10_Rosento"
-author: Ezekiel MArtin Rosento
-date: 11-7-26
-output: html_document
+author: "Ezekiel MArtin Rosento"
+date: "11-7-26"
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 PART A
 Question #1
 ```{r}
-#"A" adds up the numbers in each row of the matrix and returns one total for every row, while "B" #does the same for each column. "C" returns a list, because `lapply` always returns its results in #list form. "D" squares each number and returns the answers as a simple vector, and "E" counts the #letters in each word and labels each count with the word it belongs to. "D" multiplies the two sets #of numbers together, matching them up position by position, and "G" adds up the numbers within each #group and returns one total for every group.
+#"A" adds up the numbers in each row of the matrix and returns one total for every row, while "B" #does the same for each column. "C" returns a list, because `lapply` always returns its results in #list form. "D" squares each number and returns the answers as a simple vector, and "E" counts the #letters in each word and labels each count with the word it belongs to. "F" multiplies the two sets #of numbers together, matching them up position by position, and "G" adds up the numbers within each #group and returns one total for every group.
 ```
 Question #2
 ```{r}
@@ -44,7 +46,7 @@ mapply(function(p, n, r) p * (1 + r)^n,
 ```
 Question #4
 ```{r}
-apply(iris$Sepal.Length, iris$Species, mean)
+tapply(iris$Sepal.Length, iris$Species, mean)
 table(mtcars$cyl, mtcars$am)
 tapply(mtcars$mpg, mtcars$cyl, mean, na.rm = TRUE)
 ```

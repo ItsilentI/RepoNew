@@ -1,0 +1,94 @@
+---
+title: "RExercise#9_Rosento"
+author: Ezekiel MArtin Rosento
+date: 11-7-26
+output: html_document
+---
+
+Question #1
+```{r}
+#a.
+S_Size <- c(6.5, 9.0, 8.5, 8.5, 10.5, 7.0, 9.5, 9.0, 13.0, 7.5, 10.5, 8.5, 12.0, 10.5,
+13.0, 11.5, 8.5, 5.0, 10.0, 6.5, 7.5, 8.5, 10.5, 8.5, 10.5, 11.0, 9.0, 13.0)
+Height <- c(66.0, 68.0, 64.5, 65.0, 70.0, 64.0, 70.0, 71.0, 72.0, 64.0, 74.5, 67.0, 71.0, 71.0,
+77.0, 72.0, 59.0, 62.0, 72.0, 66.0, 64.0, 67.0, 73.0, 69.0, 72.0, 70.0, 69.0, 70.0)
+Gender <- c("F", "F", "F", "F", "M", "F", "F", "F", "M", "F", "M", "F", "M", "M",
+"M", "M", "F", "F", "M", "F", "F", "M", "M", "F", "M", "M", "M", "M")
+
+shoesize <- data.frame(S_size = S_Size, Height = Height, Gender = Gender)
+write.csv(shoesize, "shoesize.csv", row.names = FALSE)
+
+#b.
+shoe <-read.csv("shoesize.csv")
+tail(shoe,5)
+
+#c.
+str(shoe)
+
+#d.
+dim(shoe)
+nrow(shoe)
+ncol(shoe)
+
+#e.
+summary(shoe)
+#str shows the data's structure such as rows and columns. 
+#While sumary gives the min mean median etc.
+
+#f.
+males   <- shoe[shoe$Gender == "M", c("S_size", "Height")]
+females <- shoe[shoe$Gender == "F", c("S_size", "Height")]
+males
+females
+
+#g.
+mean(shoe$S_size)
+mean(shoe$Height)
+
+#h.
+#Yes,Taller people tend to have bigger shoe sizes.
+
+
+#Question 2
+gender <- factor(Gender, levels = c("F", "M"), labels = c("Female", "Male"))
+Gender
+```
+
+Question #3
+```{r}
+#Because knitting always starts from the .Rmd file's own folder, file paths are relative to the #document, not to the author's computer. So it works for anyone who keeps the CSV beside the .Rmd, #and there's no machine-specific path like to break.
+```
+
+Question #4
+```{r}
+str(shoe)
+#Gender imports as chr, which is expected since read.csv() doesn't create factors by default. If #ShoeSize were accidentally imported as text, mean() would return NA, sorting would go #alphabetically, and plots and models wouldn't treat it as numeric, so you'd need to clean the bad #value and use as.numeric().
+```
+
+Question #5
+```{r}
+#Also checking tail() can reveal extra rows, bad value in the last row, and incomplete last row.
+#Which is something that you can't do if you only use head().
+```
+
+Question #6
+```{r}
+#a.
+cor(shoe$S_size, shoe$Height)
+
+#b.
+shoe[shoe$S_size >= 11, ]
+```
+
+Question #7
+```{r}
+mean(females$Height)
+mean(males$Height)
+mean(females$S_size)
+mean(males$S_size)
+
+# The male subset has a higher mean than the female subset on both height and shoe size.
+# This supports the claim that shoe size and height are related. Since males also tend
+# to be taller than females, gender should be accounted for when studying the relationship.
+```
+
